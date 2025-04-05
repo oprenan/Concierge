@@ -43,4 +43,4 @@ dateRange = pd.read_csv('dates.csv')
 dates = makeDateRanges(dateRange)
 scenarios = makeCombos(places, dates)
 
-scenarios.to_csv('Concierge/Trip/scenarios.csv', index=False)
+scenarios.to_csv('scenarios.csv', index=False)

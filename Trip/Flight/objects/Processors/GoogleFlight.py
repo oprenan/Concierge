@@ -10,7 +10,7 @@ class GoogleFlight():
         self.org = org
         self.dest = dest
         self.date = date
-        self.configKeys = json.loads(self.readFromFile('GoogleFlight.json'))
+        self.configKeys = json.loads(self.readFromFile('Flight/Objects/Processors/GoogleFlight.json'))
         self.processText(self.configKeys['textSearch'][lan])
 
     def readFromFile(self,filename):

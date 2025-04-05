@@ -5,3 +5,6 @@ __pycache__
 #places.csv
 TextToProcess.txt
 chromedriver
+Trip/CaseCreator/scenarios.csv
+Trip/CaseCreator/places.csv
+Trip/CaseCreator/dates.csv

@@ -13,7 +13,7 @@ import simplejson as json
 import argparse
 from collections import defaultdict
 from objects.Processors.GoogleFlight import GoogleFlight
-import Concierge.Trip.Database.DatabaseHandler as DBHandler
+import Database.DatabaseHandler as DBHandler
 import sys
 
 def parse_opts():
@@ -50,7 +50,7 @@ def getHTML(url):
     driver.get(url)
     elementSource = driver.page_source
     driver.close()
-    writeToFile('tmp/output.html', elementSource)
+    writeToFile('Flight/tmp/output.html', elementSource)
     return elementSource
 
 def handleResponse(response, source):
@@ -59,7 +59,7 @@ def handleResponse(response, source):
     t = soup.find_all("div", {"class": "JMc5Xc"}) #GRU,YVR,2024-12-01,en
     #t = soup.find_all("div", {"class": "cKvRXe"}) #GRU,FOR,2024-12-01,pt
     data[source].append(str(t))
-    writeToFile('tmp/TextToProcess.txt', json.dumps(data,encoding='utf-8', ensure_ascii=False))
+    writeToFile('Flight/tmp/TextToProcess.txt', json.dumps(data,encoding='utf-8', ensure_ascii=False))
 
 def writeToFile(filename, content):
     with open(filename, "w", encoding="utf-8") as file:
@@ -111,7 +111,7 @@ def insertQuery(flight):
 if __name__ == "__main__":
     sys.path.append('/Users/renan/Library/Python/3.9/lib/python/site-packages')
     optsHash = parse_opts()
-    config = json.loads(readFromFile('config.json'))
+    config = json.loads(readFromFile('Flight/config.json'))
     scenarios = pd.read_csv(config['run_file'])
     
     for indx, row in scenarios.iterrows():
@@ -131,7 +131,7 @@ if __name__ == "__main__":
             handleResponse(html, 'GoogleFlight')
 
         if optsHash['listrun']:
-            sourceText = json.loads(readFromFile('tmp/TextToProcess.txt'))
+            sourceText = json.loads(readFromFile('Flight/tmp/TextToProcess.txt'))
             google = processRawData(sourceText, org, dest, dateStr, lan)
 
             if optsHash['insertdb']:
