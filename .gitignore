@@ -8,3 +8,4 @@ chromedriver
 Trip/CaseCreator/scenarios.csv
 Trip/CaseCreator/places.csv
 Trip/CaseCreator/dates.csv
+Trips/Flight/tmp/*
